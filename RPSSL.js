@@ -1,69 +1,82 @@
-var playerChoice;
-var computerChoice;
+var RPSSL = {
 
-// Stores the lables for the choices
-var choices = {
+    choices: {
     ROCK: 0,
     PAPER: 1,
     SCISSORS: 2,
     SPOCK:3,
     LIARD: 4
-};
+    },
+    score: {
+        wins: 0,
+        losses:0,
+        ties:0
+    },
+    results: {
+        WIN: 1,
+        TIE: 0,
+        LOSS: -1
+    },
+    match: {
+        WINS:0,
+        LOSSES:0
+    },
+    var player = new player(),
+var computer = new player()
 
-// score[0] = wins, score[1] = ties, score[2] = losses
-var score = {
-    wins: 0,
-    losses:0,
-    ties:0,
-};
-var match = [0, 0];
+},
 
-function storePlayerChoice(choice) {
-    playerChoice = choice;
-    console.log("My choice = " + choice);
-    storeComputerChoice();
-}
+rockButton: document.getElementById("rock"),
+paperButton: document.getElementById("paper"),
+scissorsButton: document.getElementById("scissors"),
+spockButton: document.getElementById("spock"),
+lizardButton: document.getElementById("lizard"),
+playButton: document.getElementById("play"),
 
-function storeComputerChoice() {
-    computerChoice = Math.floor(Math.random() * 5);
-    console.log("Computer choice = " + computerChoice);
-}
 
-function playGame() {
-        if (playerChoice == computerChoice) {
-          ++score.ties;
-            displayGameResult("tie")
+storePlayerChoice: function(choice){
+    this.player.choice = choice;
+    console.log(" My choice = " + this.player.choice);
+    this.storeComputerChoice();
+},
+
+    storeComputerChoice: function(){
+        this.computer.choice = Math.floor(Math.random() * 5);
+    }
+playGame: function() {
+        if (player.choice == computer.choice) {
+          ++RPSSL.score.ties;
+            RPSSL.displayGameResult("tie")
         } else if (RPSSL.player.Choice == RPSSL.choices.ROCK && (RPSSL.computer.Choice == choices.SCISSORS || RPSSL.computer.choice == choices.LIZARD)) {
-           ++score.wins;
-            updateMatch();
-            displayGameResult("win")
+           ++RPSSL.score.wins;
+            RPSSL.updateMatch();
+            RPSSL.displayGameResult("win")
         } else if (RPSSL.player.Choice == RPSSL.choices.PAPER && (RPSSL.computer.Choice == choices.ROCK || RPSSL.computer.choice == choices.SPOCK)) { {
-            ++score.wins;
-            updateMatch();
-            displayGameResult("win")
+            ++RPSSL.score.wins;
+            RPSSL.updateMatch();
+            RPSSL.displayGameResult("win")
         } else if (RPSSL.player.Choice == RPSSL.choices.SCISSORS && (RPSSL.computer.Choice == choices.PAPER || RPSSL.computer.choice == choices.LIZARD)) { {
-           ++score.wins;
-            updateMatch();
-            displayGameResult("win")
+           ++RPSSL.score.wins;
+            RPSSL.updateMatch();
+            RPSSL.displayGameResult("win")
         } else if (RPSSL.player.Choice == RPSSL.choices.SPOCK && (RPSSL.computer.Choice == choices.SCISSORS || RPSSL.computer.choice == choices.ROCK)) { {
-          ++score.wins;
-            updateMatch();
-            displayGameResult("win")
+          ++RPSSL.score.wins;
+            RPSSL.updateMatch();
+            RPSSL.displayGameResult("win")
         } else if (RPSSL.player.Choice == RPSSL.choices.LIZARD && (RPSSL.computer.Choice == choices.SPOCK || RPSSL.computer.choice == choices.PAPER)) { {
-           ++score.wins;
-            updateMatch();
-            displayGameResult("win")
+           ++RPSSL.score.wins;
+            RPSSL.updateMatch();
+            RPSSL.displayGameResult("win")
         } else {
-          ++score.losses;
-            updateMatch();
-            displayGameResult("lose")
+          ++RPSSL.score.losses;
+            RPSSL.updateMatch();
+            RPSSL.displayGameResult("lose")
         }
     }
 
-
-function displayGameResult(result) {
+displayGameResult: function(result) {
     // Define an array of text labels for the choices 0, 1, 2;
-    var message = "Your choice was " + choices[playerChoice] + " and the computer's choice was " + choices[computerChoice] + ".";
+    var message = "Your choice was " + RPSSL.player.choice + " and the computer's choice was " + RPSSL.computer.choice+ ".";
     if (result === "win") {
         document.getElementById("result").textContent = message + " YOU WIN!";
         document.getElementById("result").className = "alert alert-success";
@@ -75,49 +88,36 @@ function displayGameResult(result) {
         document.getElementById("result").className = "alert alert-info";
     }
 
-    updateScoreBoard();
+    RPSSL.updateScoreBoard();
 }
 
-// Updates the score
-function updateScore(val) {
-    ++score[val];
-    console.log("The score is now " + score);
-}
-
-function updateMatch(val) {
-    if (score[0] == 2) {
-        ++match[0];
-        score[0] = 0;
-        score[1] = 0;
-        score[2] = 0;
-        updateMatchBoard();
-    } else if (score[2] == 2) {
-        ++match[1];
-        score[0] = 0;
-        score[1] = 0;
-        score[2] = 0;
-        updateMatchBoard();
+updateMatch: function(val) {
+    if (RPSSL.score.wins == 2) {
+        ++RPSSL.match.WINS;
+        RPSSL.score.wins = 0;
+        RPSSL.score.losses = 0;
+        RPSSL.score.ties = 0;
+        RPSSL.updateMatchBoard();
+    } else if (RPSSL.score.losses == 2) {
+        ++RPSSL.match.LOSSES;
+        RPSSL.score.wins = 0;
+        RPSSL.score.losses = 0;
+        RPSSL.score.ties = 0;
+        RPSSL.updateMatchBoard();
     }
 }
-
-function updateMatchBoard() {
-    document.getElementById("wins2").textContent = match[0];
-    document.getElementById("losses2").textContent = match[1];
+updateMatchBoard: function() {
+    document.getElementById("wins2").textContent = RPSSL.match.WINS;
+    document.getElementById("losses2").textContent = RPSSL.match.LOSSES;
+}
+displayScoreBoard: function (winsId, lossesId, tiesId) {
+    document.getElementById(winsId).textContent = RPSSSL.score.wins;
+    document.getElementById(lossesId).textContent = RPSSL.score.losses;
+    document.getElementById(tiesId).textContent = RPSSL.score.ties;
 }
 
-function updateScoreBoard() {
-    document.getElementById("wins").textContent = score[0];
-    document.getElementById("losses").textContent = score[2];
-    document.getElementById("ties").textContent = score[1];
-}
 
 
-var rockButton = document.getElementById("rock");
-var paperButton = document.getElementById("paper");
-var scissorsButton = document.getElementById("scissors");
-var spockButton = document.getElementById("spock");
-var lizardButton = document.getElementById("lizard");
-var playButton = document.getElementById("play");
 
 rockButton.addEventListener('click', () => {
     storePlayerChoice(0)
