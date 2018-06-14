@@ -21,8 +21,8 @@ var RPSSL = {
         WINS:0,
         LOSSES:0
     },
-    var player = new player(),
-var computer = new player()
+    player: new player(),
+    computer: new player(),
 
 },
 
@@ -115,25 +115,28 @@ displayScoreBoard: function (winsId, lossesId, tiesId) {
     document.getElementById(lossesId).textContent = RPSSL.score.losses;
     document.getElementById(tiesId).textContent = RPSSL.score.ties;
 }
+Player: function(){
+    this.choice = null:
+}
 
 
 
 
-rockButton.addEventListener('click', () => {
-    storePlayerChoice(0)
+RPSSL.rockButton.addEventListener('click', () => {
+    RPSSL.storePlayerChoice(0)
 });
-paperButton.addEventListener('click', () => {
-    storePlayerChoice(1)
+RPSSL.paperButton.addEventListener('click', () => {
+    RPSSL.storePlayerChoice(1)
 });
-scissorsButton.addEventListener('click', () => {
-    storePlayerChoice(2)
+RPSSL.scissorsButton.addEventListener('click', () => {
+    RPSSL.storePlayerChoice(2)
 });
-spockButton.addEventListener('click', () => {
-    storePlayerChoice(3)
+RPSSL.spockButton.addEventListener('click', () => {
+    RPSSL.storePlayerChoice(3)
 });
-lizardButton.addEventListener('click', () => {
-    storePlayerChoice(4)
+RPSSL.lizardButton.addEventListener('click', () => {
+    RPSSL.storePlayerChoice(4)
 });
-playButton.addEventListener('click', () => {
-    playGame()
+RPSSL.playButton.addEventListener('click', () => {
+    RPSSL.playGame()
 });
